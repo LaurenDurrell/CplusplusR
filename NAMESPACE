@@ -1,4 +1,4 @@
-useDynLib(CPlusPlusR, .registration=TRUE)
+useDynLib(CplusplusR, .registration=TRUE)
 import(methods, Rcpp)
 exportPattern("^[[:alpha:]]+")
 

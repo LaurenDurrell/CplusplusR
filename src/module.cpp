@@ -213,10 +213,10 @@ std::string marshall_string(const std::string& X)
 RCPP_MODULE(marshalling)
 {
 function("rcpp_marshall_string", &marshall_string);
-function("rcpp_run_all", &runAll);
-function("rcpp_fundermental_algorithm", &FUNDERMENTAL_ALG);
-function("rcpp_is_stable", &IS_STABLE);
-function("rcpp_indexer" &Indexer);
-function("rcpp_get_wife", &getWife)
-function("rcpp_get_husband", &getHusband);
+//function("rcpp_run_all", &runAll);
+//function("rcpp_fundamental_algorithm", &FUNDAMENTAL_ALG);
+//function("rcpp_is_stable", &IS_STABLE);
+//function("rcpp_indexer" &Indexer);
+//function("rcpp_get_wife", &getWife)
+//function("rcpp_get_husband", &getHusband);
 }
