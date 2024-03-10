@@ -3,9 +3,9 @@ Type: Package
 Title: StableMarriageCPlusPlusRInt
 Version: 1.0
 Date: 2024-02-29
-Author: Your Name
-Maintainer: Your Name <l.durrell@lancaster.ac.uk>
-Description: Integrates C++ algorithms that provide solutionsto the Stable Marriage Problem in R and provides some pre and post processing.
+Author: Lauren Durrell
+Maintainer: Lauren Durrell <l.durrell@lancaster.ac.uk>
+Description: Integrates C++ algorithms that provide solutions to the Stable Marriage Problem in R and provides some pre and post processing.
 License: GPL (>= 2)
 Imports: Rcpp (>= 1.0.12)
 LinkingTo: Rcpp
