@@ -1,0 +1,5 @@
+useDynLib(CPlusPlusR, .registration=TRUE)
+import(methods, Rcpp)
+exportPattern("^[[:alpha:]]+")
+
+
