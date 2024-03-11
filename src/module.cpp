@@ -206,21 +206,21 @@ Rcpp::DataFrame fundamental_wrapper(DataFrame df1, DataFrame df2) {
 }
 
 
-//std::string is_stable_check_wrapper(DataFrame df1, DataFrame df2) {
-//    //call df_to_map twice for each df
-//    //do fundermental alg
-//    //do map_to_df for output
-//    std::unordered_map<std::string,std::vector<std::string>> PrefTab1 = df_to_map(df1);
-//    std::unordered_map<std::string,std::vector<std::string>> PrefTab2 = df_to_map(df2);
-//    std::unordered_map<std::string,std::string> Matched_list = FUNDAMENTAL_ALG(PrefTab1, PrefTab2);
-//    std::string stable_check = IS_STABLE(IS_STABLE, PrefTab2, Matched_list);
-//    return stable_check;
-//}
+std::string is_stable_check_wrapper(DataFrame df1, DataFrame df2) {
+    //call df_to_map twice for each df
+    //do fundermental alg
+    //do map_to_df for output
+    std::unordered_map<std::string,std::vector<std::string>> PrefTab1 = df_to_map(df1);
+    std::unordered_map<std::string,std::vector<std::string>> PrefTab2 = df_to_map(df2);
+    std::vector<std::pair<std::string,std::string>> Matched_list = FUNDAMENTAL_ALG(PrefTab1, PrefTab2);
+    std::string stable_check = IS_STABLE(IS_STABLE, PrefTab2, Matched_list);
+    return stable_check;
+}
 
 
 RCPP_MODULE(marshalling)
 {
 function("rcpp_marshall_string", &marshall_string);
 function("fundamental_wrapper", &fundamental_wrapper);
-//function("is_stable_check_wrapper", &is_stable_check_wrapper);
+function("is_stable_check_wrapper", &is_stable_check_wrapper);
 }
