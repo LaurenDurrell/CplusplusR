@@ -210,13 +210,60 @@ std::string marshall_string(const std::string& X)
 }
 
 
+//////NEW CODE TBD///////////////////
+std::unordered_map<char,std::vector<char>> df_to_map(DataFrame& df){
+    //loop through vectors to give a a map similar to open file func
+    std::unordered_map<char, std::vector<char>> dfmap;
+    Rcpp::CharacterVector col_names = df.names();
+    for (int i = 0; i <df.size(); i++){
+        char col_name = Rcpp::as<char>(col_names[i]);
+        Rcpp::CharacterVector = df[col_name];
+        dfmap[col_name] = Rcpp::as<std::vector<char>>(column);
+    }
+    return dfmap;
+}
+
+Rcpp::DataFrame map_to_df(std::unordered_map<char,char>& unord_map){
+    //loop through map entries to give vectors
+    int n = unord_map.size()
+    std::vector<char> names(n);
+    std::vector<char> values(n);
+    int i = 0;
+    for (cont auto& pair : unord_map){
+        names[i] = pair.first;
+        values[i] = pair.second;
+        i++;
+    }
+    Rcpp::DataFrame df = Rcpp::DataFrame::create(Rcpp::Named("names")=names, Rcpp::Named("values")=values);
+    return df;
+}
+
+Rcpp::DataFrame fundamental_wrapper(DataFrame df1, DataFrame df2) {
+    //call df_to_map for each df
+    //do fundermental alg
+    //do map_to_df for output
+    std::unordered_map<char,std::vector<char>> PrefTab1 = df_to_map(df1);
+    std::unordered_map<char,std::vector<char>> PrefTab2 = df_to_map(df2);
+    std::unordered_map<char,char> Matched_list = FUNDAMENTAL_ALG(PrefTab1, PrefTab2);
+    Rcpp::DataFrame engagement_output= map_to_df(Matched_list);
+    return engagement_output;
+}
+
+Rcpp::DataFrame is_stable_check_wrapper(DataFrame df1, DataFrame df2) {
+    //call df_to_map twice for each df
+    //do fundermental alg
+    //do map_to_df for output
+    std::unordered_map<char,std::vector<char>> PrefTab1 = df_to_map(df1);
+    std::unordered_map<char,std::vector<char>> PrefTab2 = df_to_map(df2);
+    std::unordered_map<char,char> Matched_list = FUNDAMENTAL_ALG(PrefTab1, PrefTab2);
+    std::string stable_check = IS_STABLE(IS_STABLE, PrefTab2, Matched_list)
+    return stable_check;
+}
+
+
 RCPP_MODULE(marshalling)
 {
 function("rcpp_marshall_string", &marshall_string);
-//function("rcpp_run_all", &runAll);
-//function("rcpp_fundamental_algorithm", &FUNDAMENTAL_ALG);
-//function("rcpp_is_stable", &IS_STABLE);
-//function("rcpp_indexer" &Indexer);
-//function("rcpp_get_wife", &getWife)
-//function("rcpp_get_husband", &getHusband);
+function("fundermental_wrapper", &fundamental_wrapper);
+function("is_stable_check_wrapper", &is_stable_check_wrapper);
 }
