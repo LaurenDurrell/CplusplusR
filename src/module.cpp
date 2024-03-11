@@ -232,8 +232,8 @@ Rcpp::DataFrame map_to_df(std::unordered_map<char,char>& unord_map){
         values.push_back(pair.second);
     }
     Rcpp::DataFrame df = Rcpp::DataFrame::create(
-        Rcpp::Named("names") = names,
-        Rcpp::Named("values") = values);
+        Rcpp::Named("names") = Rcpp::wrap(names),
+        Rcpp::Named("values") = Rcpp::wrap(values));
     return df;
 }
 
