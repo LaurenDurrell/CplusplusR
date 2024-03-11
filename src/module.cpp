@@ -74,8 +74,6 @@ std::string IS_STABLE(const std::unordered_map<char, std::vector<char>>& MenP,
             std::vector<char> WomanPrefS=Slicer(womanPreferences,husbandI);
             for(int j=0;j<WomanPrefS.size();j++){
                 if(WomanPrefS[j]==husband){
-                    std::cout<< "husband-wife:" << husband <<"-"<<wife << std::endl;
-                    std::cout << "better match:" << husband <<"-"<<ManPrefS[i] <<std::endl;
                     return "UNSTABLE";
                 }
             }
@@ -154,52 +152,7 @@ std::unordered_map<char, std::vector<char>> openFile(std::string filename) {
             }
         }
     }
-
-    // Print the data
-    std::cout << filename <<std::endl;
-    for (const auto& pair : data) {
-        std::cout << "Key: " << pair.first << ", Values:";
-        for (char c : pair.second) {
-            std::cout << " " << c;
-        }
-        std::cout << std::endl;
-    }
     return data;
-}
-
-//TASK 3
-//RUN ALL ALGORITHMS AND TIMETHE FUNCDERMENTAL ALGORITHM
-void runAll(std::string womenFilename, std::string menFilename, int number){
-    //read csv pref tables
-    auto WomenPcsv = openFile(womenFilename);
-    auto MenPcsv = openFile(menFilename);
-    //run FUNDERMENTAL ALG on the csv data
-    auto startTime = std::chrono::high_resolution_clock::now();// start timeer
-    for(int q=0; q<number; q++){
-        auto CSVengagements = FUNDAMENTAL_ALG(MenPcsv, WomenPcsv);
-    }
-    auto endTime = std::chrono::high_resolution_clock::now();// Stop timer
-    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime);
-    auto AvTime = duration/number;
-    auto CSVengagements = FUNDAMENTAL_ALG(MenPcsv, WomenPcsv);
-    std::cout << "Engagements: " << std::endl;
-        for (const auto& pair : CSVengagements) {
-            std::cout << pair.second << " is engaged to " << pair.first << std::endl;
-        }
-    std::cout << "Average time: " << AvTime.count() << " microseconds" << std::endl;
-        //run IS STABLE on the output to double check it
-        //convert engagements mapping into vector of pairs
-        std::vector<std::pair<char,char>> CSVengagementVec;
-        for (const auto& pair : CSVengagements){
-            CSVengagementVec.push_back(pair);
-        }
-            //swap the order or men and women
-        for (auto& pair : CSVengagementVec) {
-            std::swap(pair.first, pair.second);
-        }
-             //run is stable on the vector
-        std::cout << IS_STABLE(MenPcsv, WomenPcsv, CSVengagementVec) << std::endl;
-    return;
 }
 
 std::string marshall_string(const std::string& X)
