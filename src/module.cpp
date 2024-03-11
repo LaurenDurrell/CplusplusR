@@ -82,8 +82,9 @@ std::string IS_STABLE(const std::unordered_map<char, std::vector<char>>& MenP,
         return "STABLE";
 }
 
-//FUNCDERMENTAL ALGORITHM - find a stable matching given two preference tables
-std::unordered_map<char, char> FUNDAMENTAL_ALG(const std::unordered_map<char,
+
+//FUNDERMENTAL ALGORITHM - find a stable matching given two preference tables
+std::vector<std::pair<char,char>> FUNDAMENTAL_ALG(const std::unordered_map<char,
                                                std::vector<char>>& MenP,
                                                const std::unordered_map<char,
                                                std::vector<char>>& WomenP) {
@@ -126,7 +127,16 @@ std::unordered_map<char, char> FUNDAMENTAL_ALG(const std::unordered_map<char,
         }
         k = k + 1;
     }
-    return engagements;
+        //convert engagements mapping into vector of pairs
+        std::vector<std::pair<char,char>> engagementVec;
+        for (const auto& pair : engagementVec){
+            engagementVec.push_back(pair);
+        }
+            //swap the order or men and women
+        for (auto& pair : engagementVec) {
+            std::swap(pair.first, pair.second);
+        }
+    return engagementVec;
 }
 
 
