@@ -223,7 +223,7 @@ std::unordered_map<char,std::vector<char>> df_to_map(DataFrame& df){
     return dfmap;
 }
 
-Rcpp::DataFrame map_to_df(std::unordered_map<char,char>& unord_map){
+Rcpp::DataFrame map_to_df(std::unordered_map<char,char> unord_map){
     //loop through map entries to give vectors
     std::vector<char> names;
     std::vector<char> values;
@@ -248,7 +248,7 @@ Rcpp::DataFrame fundamental_wrapper(DataFrame df1, DataFrame df2) {
     return engagement_output;
 }
 
-Rcpp::DataFrame is_stable_check_wrapper(DataFrame df1, DataFrame df2) {
+std::string is_stable_check_wrapper(DataFrame df1, DataFrame df2) {
     //call df_to_map twice for each df
     //do fundermental alg
     //do map_to_df for output
@@ -264,5 +264,5 @@ RCPP_MODULE(marshalling)
 {
 function("rcpp_marshall_string", &marshall_string);
 function("fundamental_wrapper", &fundamental_wrapper);
-function("is_stable_check_wrapper", &is_stable_check_wrapper);
+//function("is_stable_check_wrapper", &is_stable_check_wrapper);
 }
