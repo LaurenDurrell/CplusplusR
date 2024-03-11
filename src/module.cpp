@@ -213,7 +213,7 @@ std::string is_stable_check_wrapper(DataFrame df1, DataFrame df2) {
     std::unordered_map<std::string,std::vector<std::string>> PrefTab1 = df_to_map(df1);
     std::unordered_map<std::string,std::vector<std::string>> PrefTab2 = df_to_map(df2);
     std::vector<std::pair<std::string,std::string>> Matched_list = FUNDAMENTAL_ALG(PrefTab1, PrefTab2);
-    std::string stable_check = IS_STABLE(IS_STABLE, PrefTab2, Matched_list);
+    std::string stable_check = IS_STABLE(PrefTab1, PrefTab2, Matched_list);
     return stable_check;
 }
 
