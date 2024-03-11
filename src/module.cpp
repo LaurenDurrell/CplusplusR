@@ -190,19 +190,19 @@ std::unordered_map<char,std::vector<char>> df_to_map(DataFrame& df){
     return dfmap;
 }
 
-Rcpp::DataFrame map_to_df(std::unordered_map<char,char>& unord_map){
-    //loop through map entries to give vectors
-    std::vector<char> names;
-    std::vector<char> values;
-    for (const auto& pair : unord_map) {
-        names.push_back(pair.first);
-        values.push_back(pair.second);
-    }
-    Rcpp::DataFrame df = Rcpp::DataFrame::create(
-        Rcpp::Named("names") = Rcpp::wrap(names),
-        Rcpp::Named("values") = Rcpp::wrap(values));
-    return df;
-}
+//Rcpp::DataFrame map_to_df(std::unordered_map<char,char>& unord_map){
+//    //loop through map entries to give vectors
+//    std::vector<char> names;
+//    std::vector<char> values;
+//    for (const auto& pair : unord_map) {
+//        names.push_back(pair.first);
+//        values.push_back(pair.second);
+//    }
+//    Rcpp::DataFrame df = Rcpp::DataFrame::create(
+//        Rcpp::Named("names") = Rcpp::wrap(names),
+//        Rcpp::Named("values") = Rcpp::wrap(values));
+//    return df;
+//}
 
 DataFrame marshall_engagements(const std::vector<std::pair<char,char>>& engagements) {
     // vectors to store names and values
