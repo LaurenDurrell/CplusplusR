@@ -19,20 +19,10 @@ using namespace Rcpp;
 #include <random>
 
 
-//NEW EXTRA CODE TO HANDLE CHARS
-class RChar {
-public:
-    RChar(char c) : value(c) {}
-    operator char() const { return value; } // Convert RChar to char when needed
-private:
-    char value;
-};
-
-
 //TASK 1
 //functions used in IS_STABLE
 //getHusband FUNCTION - identify the husband of a given women
-char getHusband(const char woman, const std::vector<std::pair<char, char>>& matching) {
+std::string getHusband(const std::string woman, const std::vector<std::pair<std::string, std::string>>& matching) {
     for (const auto& couple : matching) {
         if (couple.second == woman)
             return couple.first;
@@ -41,7 +31,7 @@ char getHusband(const char woman, const std::vector<std::pair<char, char>>& matc
 }
 
 //getWIFE FUNCTION - identify the wife of a given man
-char getWife(const char man, const std::vector<std::pair<char, char>>& matching) {
+std::string getWife(const std::string man, const std::vector<std::pair<std::string, std::string>>& matching) {
     for (const auto& couple : matching) {
         if (couple.first == man)
             return couple.second;
@@ -50,7 +40,7 @@ char getWife(const char man, const std::vector<std::pair<char, char>>& matching)
 }
 
 //INDEXER FUNCTION - find the index of a person from the values vector in the preference table
-int Indexer(const std::vector<char>& preferenceList,char partner) {
+int Indexer(const std::vector<std::string>& preferenceList,std::string partner) {
     for(int i=0;i<preferenceList.size();i++){
         if(preferenceList[i]==partner) {
             return i;
@@ -60,8 +50,8 @@ int Indexer(const std::vector<char>& preferenceList,char partner) {
     }
 
 //SLICER FUNCTION - slice a person list of preferences at their partner, so only people who are prefered to their partner are listed
-std::vector<char> Slicer(const std::vector<char>& preferenceList, int partnerIndex){
-    std::vector<char> prefered;
+std::vector<std::string> Slicer(const std::vector<std::string>& preferenceList, int partnerIndex){
+    std::vector<std::string> prefered;
     for(int i=0; i<partnerIndex; i++){
         prefered.push_back(preferenceList[i]);
     }
@@ -69,19 +59,19 @@ std::vector<char> Slicer(const std::vector<char>& preferenceList, int partnerInd
 }
 
 //IS_STABLE ALGORITHM - checks if a matching is stable given two preference tables and a matching
-std::string IS_STABLE(const std::unordered_map<char, std::vector<char>>& MenP,
-                      const std::unordered_map<char, std::vector<char>>& WomenP,
-                      const std::vector<std::pair<char, char>>& matching) {
+std::string IS_STABLE(const std::unordered_map<std::string, std::vector<std::string>>& MenP,
+                      const std::unordered_map<std::string, std::vector<std::string>>& WomenP,
+                      const std::vector<std::pair<std::string, std::string>>& matching) {
     for (const auto& couple : matching) {
-        char husband = couple.first;
-        char wife = couple.second;
+        std::string husband = couple.first;
+        std::string wife = couple.second;
         auto& menPreferences = MenP.at(husband);
         int wifeI = Indexer(menPreferences,wife);
-        std::vector<char> ManPrefS = Slicer(menPreferences,wifeI);
+        std::vector<std::string> ManPrefS = Slicer(menPreferences,wifeI);
         for(int i=0;i<ManPrefS.size();i++){
             auto& womanPreferences = WomenP.at(ManPrefS[i]);
             int husbandI=Indexer(womanPreferences,getHusband(ManPrefS[i],matching));
-            std::vector<char> WomanPrefS=Slicer(womanPreferences,husbandI);
+            std::vector<std::string> WomanPrefS=Slicer(womanPreferences,husbandI);
             for(int j=0;j<WomanPrefS.size();j++){
                 if(WomanPrefS[j]==husband){
                     return "UNSTABLE";
@@ -94,16 +84,16 @@ std::string IS_STABLE(const std::unordered_map<char, std::vector<char>>& MenP,
 
 
 //FUNDERMENTAL ALGORITHM - find a stable matching given two preference tables
-std::vector<std::pair<char,char>> FUNDAMENTAL_ALG(const std::unordered_map<char,
-                                               std::vector<char>>& MenP,
-                                               const std::unordered_map<char,
-                                               std::vector<char>>& WomenP) {
-    char w = '\0'; // needs w to be a special character that doesn't occur in MenP and WomenP
+std::vector<std::pair<std::string,std::string>> FUNDAMENTAL_ALG(const std::unordered_map<std::string,
+                                               std::vector<std::string>>& MenP,
+                                               const std::unordered_map<std::string,
+                                               std::vector<std::string>>& WomenP) {
+    std::string w = '\0'; // needs w to be a special std::stringacter that doesn't occur in MenP and WomenP
     int k = 0;
     int n = MenP.size();
-    std::vector<char> Men;
-    std::vector<char> Women;
-    std::unordered_map<char, char> engagements;
+    std::vector<std::string> Men;
+    std::vector<std::string> Women;
+    std::unordered_map<std::string, std::string> engagements;
 
     for (const auto& pair : MenP) {
         Men.push_back(pair.first);
@@ -114,20 +104,20 @@ std::vector<std::pair<char,char>> FUNDAMENTAL_ALG(const std::unordered_map<char,
         engagements[pair.first] = w;
     }
 
-    std::unordered_map<char, std::vector<char>> tempMenP = MenP; // Make an editiable copy of MenP
-    std::unordered_map<char, std::vector<char>> tempWomenP = WomenP; // Make editiable copy of WomenP
+    std::unordered_map<std::string, std::vector<std::string>> tempMenP = MenP; // Make an editiable copy of MenP
+    std::unordered_map<std::string, std::vector<std::string>> tempWomenP = WomenP; // Make editiable copy of WomenP
 
     for (auto& pair : tempWomenP) {
         pair.second.push_back(w);
     }
 
     while (k < n) {
-        char X = Men[k];
+        std::string X = Men[k];
         while (X != w) {
-            char x = tempMenP.at(X)[0];
+            std::string x = tempMenP.at(X)[0];
             if (std::find(tempWomenP.at(x).begin(), tempWomenP.at(x).end(), X)
                 < std::find(tempWomenP.at(x).begin(), tempWomenP.at(x).end(), engagements.at(x))) {
-                char prevFiance = engagements.at(x);
+                std::string prevFiance = engagements.at(x);
                 engagements.at(x) = X;
                 X = prevFiance;
             }
@@ -139,7 +129,7 @@ std::vector<std::pair<char,char>> FUNDAMENTAL_ALG(const std::unordered_map<char,
     }
         // Convert engagements mapping into vector of pairs
         //code reused from previous runAll func
-        std::vector<std::pair<char,char>> engagementVec;
+        std::vector<std::pair<std::string,std::string>> engagementVec;
         for (const auto& pair : engagements){
             engagementVec.push_back(pair);
         }
@@ -155,9 +145,9 @@ std::vector<std::pair<char,char>> FUNDAMENTAL_ALG(const std::unordered_map<char,
 
 //TASK2
 //openFile FUNCTION - reads csv preference tables
-std::unordered_map<char, std::vector<char>> openFile(std::string filename) {
+std::unordered_map<std::string, std::vector<std::string>> openFile(std::string filename) {
     std::ifstream file(filename); // Open the CSV file for reading
-    std::unordered_map<char, std::vector<char>> data; // Map to store CSV data
+    std::unordered_map<std::string, std::vector<std::string>> data; // Map to store CSV data
     if (!file.is_open()) {
         std::cerr << "Error: Unable to open file." << std::endl;
         return data; // Return error code if file cannot be opened
@@ -165,12 +155,12 @@ std::unordered_map<char, std::vector<char>> openFile(std::string filename) {
     std::string line;
     while (std::getline(file, line)) { // Read each line of the file
         std::istringstream iss(line);
-        char key;
-        if (iss >> key) { // Get the key from the first character of the line
+        std::string key;
+        if (iss >> key) { // Get the key from the first std::stringacter of the line
             std::string cell;
             while (std::getline(iss, cell, ',')) { // Read cells from subsequent columns
-                for (char c : cell) { // Store each character in the vector
-                    data[key].push_back(c); // Add character to the vector associated with the key
+                for (std::string c : cell) { // Store each std::stringacter in the vector
+                    data[key].push_back(c); // Add std::stringacter to the vector associated with the key
                 }
             }
         }
@@ -188,22 +178,22 @@ std::string marshall_string(const std::string& X)
 
 
 //////NEW CODE FOR MARSHALLING///////////////////
-std::unordered_map<Rchar,std::vector<Rchar>> df_to_map(DataFrame& df){
+std::unordered_map<Rstd::string,std::vector<Rstd::string>> df_to_map(DataFrame& df){
     //loop through vectors to give a a map similar to open file func
-    std::unordered_map<Rchar, std::vector<Rchar>> dfmap;
-    Rcpp::CharacterVector col_names = df.names();
+    std::unordered_map<Rstd::string, std::vector<Rstd::string>> dfmap;
+    Rcpp::std::stringacterVector col_names = df.names();
     for (int i = 0; i <df.size(); i++){
-        Rchar col_name = Rcpp::as<Rchar>(col_names[i]);
-        Rcpp::CharacterVector column = df[col_name];
-        dfmap[col_name] = Rcpp::as<std::vector<Rchar>>(column);
+        Rstd::string col_name = Rcpp::as<Rstd::string>(col_names[i]);
+        Rcpp::std::stringacterVector column = df[col_name];
+        dfmap[col_name] = Rcpp::as<std::vector<Rstd::string>>(column);
     }
     return dfmap;
 }
 
-//Rcpp::DataFrame map_to_df(std::unordered_map<char,char>& unord_map){
+//Rcpp::DataFrame map_to_df(std::unordered_map<std::string,std::string>& unord_map){
 //    //loop through map entries to give vectors
-//    std::vector<char> names;
-//    std::vector<char> values;
+//    std::vector<std::string> names;
+//    std::vector<std::string> values;
 //    for (const auto& pair : unord_map) {
 //        names.push_back(pair.first);
 //        values.push_back(pair.second);
@@ -214,10 +204,10 @@ std::unordered_map<Rchar,std::vector<Rchar>> df_to_map(DataFrame& df){
 //    return df;
 //}
 
-DataFrame marshall_engagements(const std::vector<std::pair<Rchar,Rchar>>& engagements) {
+DataFrame marshall_engagements(const std::vector<std::pair<Rstd::string,Rstd::string>>& engagements) {
     // vectors to store names and values
-    std::vector<Rchar> names;
-    std::vector<Rchar> values;
+    std::vector<Rstd::string> names;
+    std::vector<Rstd::string> values;
     // update vectors with engagements
     for (const auto& pair : engagements) {
         names.push_back(pair.first);
@@ -236,9 +226,9 @@ Rcpp::DataFrame fundamental_wrapper(DataFrame df1, DataFrame df2) {
     //call df_to_map for each df
     //do fundermental alg
     //do map_to_df for output
-    std::unordered_map<Rchar,std::vector<Rchar>> PrefTab1 = df_to_map(df1);
-    std::unordered_map<Rchar,std::vector<Rchar>> PrefTab2 = df_to_map(df2);
-    std::vector<std::pair<Rchar,Rchar>> Matched_list = FUNDAMENTAL_ALG(PrefTab1, PrefTab2);
+    std::unordered_map<Rstd::string,std::vector<Rstd::string>> PrefTab1 = df_to_map(df1);
+    std::unordered_map<Rstd::string,std::vector<Rstd::string>> PrefTab2 = df_to_map(df2);
+    std::vector<std::pair<Rstd::string,Rstd::string>> Matched_list = FUNDAMENTAL_ALG(PrefTab1, PrefTab2);
     Rcpp::DataFrame engagement_output = marshall_engagements(Matched_list);
     return engagement_output;
 }
@@ -248,9 +238,9 @@ Rcpp::DataFrame fundamental_wrapper(DataFrame df1, DataFrame df2) {
 //    //call df_to_map twice for each df
 //    //do fundermental alg
 //    //do map_to_df for output
-//    std::unordered_map<char,std::vector<char>> PrefTab1 = df_to_map(df1);
-//    std::unordered_map<char,std::vector<char>> PrefTab2 = df_to_map(df2);
-//    std::unordered_map<char,char> Matched_list = FUNDAMENTAL_ALG(PrefTab1, PrefTab2);
+//    std::unordered_map<std::string,std::vector<std::string>> PrefTab1 = df_to_map(df1);
+//    std::unordered_map<std::string,std::vector<std::string>> PrefTab2 = df_to_map(df2);
+//    std::unordered_map<std::string,std::string> Matched_list = FUNDAMENTAL_ALG(PrefTab1, PrefTab2);
 //    std::string stable_check = IS_STABLE(IS_STABLE, PrefTab2, Matched_list);
 //    return stable_check;
 //}
