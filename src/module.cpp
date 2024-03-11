@@ -228,7 +228,7 @@ Rcpp::DataFrame fundamental_wrapper(DataFrame df1, DataFrame df2) {
     //do map_to_df for output
     std::unordered_map<char,std::vector<char>> PrefTab1 = df_to_map(df1);
     std::unordered_map<char,std::vector<char>> PrefTab2 = df_to_map(df2);
-    std::unordered_map<char,char> Matched_list = FUNDAMENTAL_ALG(PrefTab1, PrefTab2);
+    std::vector<std::pair<char,char>> Matched_list = FUNDAMENTAL_ALG(PrefTab1, PrefTab2);
     Rcpp::DataFrame engagement_output = marshall_engagements(Matched_list);
     return engagement_output;
 }
