@@ -217,7 +217,7 @@ std::unordered_map<char,std::vector<char>> df_to_map(DataFrame& df){
     Rcpp::CharacterVector col_names = df.names();
     for (int i = 0; i <df.size(); i++){
         char col_name = Rcpp::as<char>(col_names[i]);
-        Rcpp::CharacterVector = df[col_name];
+        Rcpp::CharacterVector column = df[col_name];
         dfmap[col_name] = Rcpp::as<std::vector<char>>(column);
     }
     return dfmap;
@@ -225,16 +225,15 @@ std::unordered_map<char,std::vector<char>> df_to_map(DataFrame& df){
 
 Rcpp::DataFrame map_to_df(std::unordered_map<char,char>& unord_map){
     //loop through map entries to give vectors
-    int n = unord_map.size()
-    std::vector<char> names(n);
-    std::vector<char> values(n);
-    int i = 0;
-    for (cont auto& pair : unord_map){
-        names[i] = pair.first;
-        values[i] = pair.second;
-        i++;
+    std::vector<char> names;
+    std::vector<char> values;
+    for (const auto& pair : unord_map) {
+        names.push_back(pair.first);
+        values.push_back(pair.second);
     }
-    Rcpp::DataFrame df = Rcpp::DataFrame::create(Rcpp::Named("names")=names, Rcpp::Named("values")=values);
+    Rcpp::DataFrame df = Rcpp::DataFrame::create(
+        Rcpp::Named("names") = names,
+        Rcpp::Named("values") = values);
     return df;
 }
 
