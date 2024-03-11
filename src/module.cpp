@@ -264,6 +264,6 @@ Rcpp::DataFrame is_stable_check_wrapper(DataFrame df1, DataFrame df2) {
 RCPP_MODULE(marshalling)
 {
 function("rcpp_marshall_string", &marshall_string);
-function("fundermental_wrapper", &fundamental_wrapper);
+function("fundamental_wrapper", &fundamental_wrapper);
 function("is_stable_check_wrapper", &is_stable_check_wrapper);
 }
