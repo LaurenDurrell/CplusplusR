@@ -223,7 +223,7 @@ std::unordered_map<char,std::vector<char>> df_to_map(DataFrame& df){
     return dfmap;
 }
 
-Rcpp::DataFrame map_to_df(std::unordered_map<char,char> unord_map){
+Rcpp::DataFrame map_to_df(std::unordered_map<char,char>& unord_map){
     //loop through map entries to give vectors
     std::vector<char> names;
     std::vector<char> values;
@@ -248,16 +248,16 @@ Rcpp::DataFrame fundamental_wrapper(DataFrame df1, DataFrame df2) {
     return engagement_output;
 }
 
-std::string is_stable_check_wrapper(DataFrame df1, DataFrame df2) {
-    //call df_to_map twice for each df
-    //do fundermental alg
-    //do map_to_df for output
-    std::unordered_map<char,std::vector<char>> PrefTab1 = df_to_map(df1);
-    std::unordered_map<char,std::vector<char>> PrefTab2 = df_to_map(df2);
-    std::unordered_map<char,char> Matched_list = FUNDAMENTAL_ALG(PrefTab1, PrefTab2);
-    std::string stable_check = IS_STABLE(IS_STABLE, PrefTab2, Matched_list)
-    return stable_check;
-}
+//std::string is_stable_check_wrapper(DataFrame df1, DataFrame df2) {
+//    //call df_to_map twice for each df
+//    //do fundermental alg
+//    //do map_to_df for output
+//    std::unordered_map<char,std::vector<char>> PrefTab1 = df_to_map(df1);
+//    std::unordered_map<char,std::vector<char>> PrefTab2 = df_to_map(df2);
+//    std::unordered_map<char,char> Matched_list = FUNDAMENTAL_ALG(PrefTab1, PrefTab2);
+//    std::string stable_check = IS_STABLE(IS_STABLE, PrefTab2, Matched_list);
+//    return stable_check;
+//}
 
 
 RCPP_MODULE(marshalling)
