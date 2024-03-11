@@ -178,14 +178,14 @@ std::string marshall_string(const std::string& X)
 
 
 //////NEW CODE FOR MARSHALLING///////////////////
-std::unordered_map<Rstd::string,std::vector<Rstd::string>> df_to_map(DataFrame& df){
+std::unordered_map<std::string,std::vector<std::string>> df_to_map(DataFrame& df){
     //loop through vectors to give a a map similar to open file func
-    std::unordered_map<Rstd::string, std::vector<Rstd::string>> dfmap;
+    std::unordered_map<std::string, std::vector<std::string>> dfmap;
     Rcpp::std::stringacterVector col_names = df.names();
     for (int i = 0; i <df.size(); i++){
-        Rstd::string col_name = Rcpp::as<Rstd::string>(col_names[i]);
+        std::string col_name = Rcpp::as<std::string>(col_names[i]);
         Rcpp::std::stringacterVector column = df[col_name];
-        dfmap[col_name] = Rcpp::as<std::vector<Rstd::string>>(column);
+        dfmap[col_name] = Rcpp::as<std::vector<std::string>>(column);
     }
     return dfmap;
 }
@@ -204,10 +204,10 @@ std::unordered_map<Rstd::string,std::vector<Rstd::string>> df_to_map(DataFrame& 
 //    return df;
 //}
 
-DataFrame marshall_engagements(const std::vector<std::pair<Rstd::string,Rstd::string>>& engagements) {
+DataFrame marshall_engagements(const std::vector<std::pair<std::string,std::string>>& engagements) {
     // vectors to store names and values
-    std::vector<Rstd::string> names;
-    std::vector<Rstd::string> values;
+    std::vector<std::string> names;
+    std::vector<std::string> values;
     // update vectors with engagements
     for (const auto& pair : engagements) {
         names.push_back(pair.first);
@@ -226,9 +226,9 @@ Rcpp::DataFrame fundamental_wrapper(DataFrame df1, DataFrame df2) {
     //call df_to_map for each df
     //do fundermental alg
     //do map_to_df for output
-    std::unordered_map<Rstd::string,std::vector<Rstd::string>> PrefTab1 = df_to_map(df1);
-    std::unordered_map<Rstd::string,std::vector<Rstd::string>> PrefTab2 = df_to_map(df2);
-    std::vector<std::pair<Rstd::string,Rstd::string>> Matched_list = FUNDAMENTAL_ALG(PrefTab1, PrefTab2);
+    std::unordered_map<std::string,std::vector<std::string>> PrefTab1 = df_to_map(df1);
+    std::unordered_map<std::string,std::vector<std::string>> PrefTab2 = df_to_map(df2);
+    std::vector<std::pair<std::string,std::string>> Matched_list = FUNDAMENTAL_ALG(PrefTab1, PrefTab2);
     Rcpp::DataFrame engagement_output = marshall_engagements(Matched_list);
     return engagement_output;
 }
