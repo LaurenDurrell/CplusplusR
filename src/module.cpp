@@ -27,7 +27,7 @@ std::string getHusband(const std::string woman, const std::vector<std::pair<std:
         if (couple.second == woman)
             return couple.first;
     }
-    return '\0'; // Return null
+    return ""; // Return null
 }
 
 //getWIFE FUNCTION - identify the wife of a given man
@@ -36,7 +36,7 @@ std::string getWife(const std::string man, const std::vector<std::pair<std::stri
         if (couple.first == man)
             return couple.second;
     }
-    return '\0'; // Return null
+    return ""; // Return null
 }
 
 //INDEXER FUNCTION - find the index of a person from the values vector in the preference table
@@ -88,7 +88,7 @@ std::vector<std::pair<std::string,std::string>> FUNDAMENTAL_ALG(const std::unord
                                                std::vector<std::string>>& MenP,
                                                const std::unordered_map<std::string,
                                                std::vector<std::string>>& WomenP) {
-    std::string w = '\0'; // needs w to be a special std::stringacter that doesn't occur in MenP and WomenP
+    std::string w = ""; // needs w to be a special std::stringacter that doesn't occur in MenP and WomenP
     int k = 0;
     int n = MenP.size();
     std::vector<std::string> Men;
@@ -140,34 +140,6 @@ std::vector<std::pair<std::string,std::string>> FUNDAMENTAL_ALG(const std::unord
     return engagementVec;
 }
 
-
-
-
-//TASK2
-//openFile FUNCTION - reads csv preference tables
-std::unordered_map<std::string, std::vector<std::string>> openFile(std::string filename) {
-    std::ifstream file(filename); // Open the CSV file for reading
-    std::unordered_map<std::string, std::vector<std::string>> data; // Map to store CSV data
-    if (!file.is_open()) {
-        std::cerr << "Error: Unable to open file." << std::endl;
-        return data; // Return error code if file cannot be opened
-    }
-    std::string line;
-    while (std::getline(file, line)) { // Read each line of the file
-        std::istringstream iss(line);
-        std::string key;
-        if (iss >> key) { // Get the key from the first std::stringacter of the line
-            std::string cell;
-            while (std::getline(iss, cell, ',')) { // Read cells from subsequent columns
-                for (std::string c : cell) { // Store each std::stringacter in the vector
-                    data[key].push_back(c); // Add std::stringacter to the vector associated with the key
-                }
-            }
-        }
-    }
-    return data;
-}
-
 ////MASHALLING TEST CODE///////
 std::string marshall_string(const std::string& X)
 {
@@ -178,13 +150,13 @@ std::string marshall_string(const std::string& X)
 
 
 //////NEW CODE FOR MARSHALLING///////////////////
-std::unordered_map<std::string,std::vector<std::string>> df_to_map(DataFrame& df){
+std::unordered_map<std::string,std::vector<std::string>> df_to_map(Rcpp::DataFrame& df){
     //loop through vectors to give a a map similar to open file func
     std::unordered_map<std::string, std::vector<std::string>> dfmap;
-    Rcpp::std::stringacterVector col_names = df.names();
+    Rcpp::CharacterVector col_names = df.names();
     for (int i = 0; i <df.size(); i++){
         std::string col_name = Rcpp::as<std::string>(col_names[i]);
-        Rcpp::std::stringacterVector column = df[col_name];
+        Rcpp::CharacterVector column = df[col_name];
         dfmap[col_name] = Rcpp::as<std::vector<std::string>>(column);
     }
     return dfmap;
