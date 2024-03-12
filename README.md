@@ -7,6 +7,7 @@ The package provides a stable_marriage function, which accepts inputs that repre
 The C++ was built using a c++17 compiler 
 ### R packages: 
 devtools<br>
+library(Rcpp)
 ### C++ packages (these are called within the package and do not need to be installed separately):
 "Rcpp.h"<br>
 string<br>
@@ -21,8 +22,7 @@ map<br>
 list<br>
 cctype<br>
 chrono<br>
-random<br>
-<br><br>
+random
 ## Function parameters: input data structures 
 ### DataFrame
 This function required two R DataFrames as input that represent the preference tables.
