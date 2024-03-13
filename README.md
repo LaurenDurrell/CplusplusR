@@ -46,13 +46,13 @@ df1 <- data.frame(A,B,C)<br>
 ![image](https://github.com/LaurenDurrell/CplusplusR/assets/158074633/4c019a00-627c-4fa5-9f13-af3a629d9323)<br>
 <br><br>
 ### named lists
-should be similarly structured. Example: 
+Should be similarly structured. Example: 
 NamedList1 <- list(A = c('a','b','d'),<br>
                    B = c('b','a','d'),<br>
                    C = c('d','a','b'))<br>
 ## Example R code to run the stable marriage function and expected output 
-More detailed examples can be found in the repository here: (https://github.com/LaurenDurrell/Interfacing-C-and-R-additional-resources-) 
-R code: <br>
+More detailed examples can be found in the repository here: (https://github.com/LaurenDurrell/Interfacing-C-and-R-additional-resources-) <br>
+Short R code example: <br>
 install_github("LaurenDurrell/CplusplusR",force=TRUE)<br>
 library(CplusplusR)<br>
 output <- fundamental_wrapper(df1,df2)
