@@ -13,6 +13,8 @@ check_data_inputs <- function(df1, df2) {
   if(length(unique(names(df1)))==length(names(df1))) {print("no duplicates names in preference table names")}
   if(class(df1)=="data.frame"|class(df1)=="list") {print("df1 correct type")}
   if(class(df2)=="data.frame"|class(df2)=="list") {print("df2 correct type")} 
+  if(sapply(df1, class)=="string"|sapply(df1, class)=="character") {print("df1 contains strings or characters as required")}
+  if(sapply(df2, class)=="string"|sapply(df2, class)=="character") {print("df2 contains strings or characters as required")}
   else(print("errors in input data"))
 }
 
