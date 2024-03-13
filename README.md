@@ -69,7 +69,6 @@ is_stable_check_wrapper(df1,df2) #A C++ function has also been provided to check
 Output: <br>
 The code will return a DataFrame where the 'names' column gives the names of the people from preference table 1, and the 'values' column gives the names of the people they should be engaged in order to give a stable matching. <br>
 ![image](https://github.com/LaurenDurrell/CplusplusR/assets/158074633/75846d4d-74c0-4e71-9358-082156d30855)<br>
-A C++ function has also been provided to check the stability of the output DataFrame:<br>
 "STABLE"
 ## Algorithm pseudo-code 
 The algorithm is detailed on page 9 of Stable Marriage and Its Relation to Other Combinatorial Problems: <br>
