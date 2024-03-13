@@ -55,16 +55,16 @@ More detailed examples can be found in the repository here: (https://github.com/
 Short R code example: <br>
 install_github("LaurenDurrell/CplusplusR",force=TRUE)<br>
 library(CplusplusR)<br>
-A <- c('a','b','d')
-B <- c('b','a','d')
-C <- c('d','a','b')
-a <- c('C','A','B')
-b <- c('A','C','B')
-d <- c('B','C','A')
-df1 <- data.frame(A,B,C)
-df2 <- data.frame(a,b,d)
-output <- fundamental_wrapper(df1,df2)
-is_stable_check_wrapper(df1,df2)<br> #A C++ function has also been provided to check the stability of the output DataFrame:<br>
+A <- c('a','b','d')<br>
+B <- c('b','a','d')<br>
+C <- c('d','a','b')<br>
+a <- c('C','A','B')<br>
+b <- c('A','C','B')<br>
+d <- c('B','C','A')<br>
+df1 <- data.frame(A,B,C)<br>
+df2 <- data.frame(a,b,d)<br>
+output <- fundamental_wrapper(df1,df2)<br>
+is_stable_check_wrapper(df1,df2) #A C++ function has also been provided to check the stability of the output DataFrame:<br>
 <br>
 Output: <br>
 The code will return a DataFrame where the 'names' column gives the names of the people from preference table 1, and the 'values' column gives the names of the people they should be engaged in order to give a stable matching. <br>
