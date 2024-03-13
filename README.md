@@ -55,15 +55,22 @@ More detailed examples can be found in the repository here: (https://github.com/
 Short R code example: <br>
 install_github("LaurenDurrell/CplusplusR",force=TRUE)<br>
 library(CplusplusR)<br>
+A <- c('a','b','d')
+B <- c('b','a','d')
+C <- c('d','a','b')
+a <- c('C','A','B')
+b <- c('A','C','B')
+d <- c('B','C','A')
+df1 <- data.frame(A,B,C)
+df2 <- data.frame(a,b,d)
 output <- fundamental_wrapper(df1,df2)
-<br><br>
+is_stable_check_wrapper(df1,df2)<br> #A C++ function has also been provided to check the stability of the output DataFrame:<br>
+<br>
 Output: <br>
 The code will return a DataFrame where the 'names' column gives the names of the people from preference table 1, and the 'values' column gives the names of the people they should be engaged in order to give a stable matching. <br>
 ![image](https://github.com/LaurenDurrell/CplusplusR/assets/158074633/75846d4d-74c0-4e71-9358-082156d30855)<br>
-<br><br> 
 A C++ function has also been provided to check the stability of the output DataFrame:<br>
-is_stable_check_wrapper(df1,df2)<br>
-The output of this is either "STABLE" or "UNSTABLE".
+"STABLE"
 ## Algorithm pseudo-code 
 The algorithm is detailed on page 9 of Stable Marriage and Its Relation to Other Combinatorial Problems: <br>
 ![image](https://github.com/LaurenDurrell/CplusplusR/assets/158074633/a3dd52a6-4952-4cf0-accc-eea3853db185)<br>
