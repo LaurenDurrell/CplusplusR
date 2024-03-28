@@ -1,18 +1,4 @@
 #include "Functions.h"
-#include <string>
-#include <iostream>
-#include <vector>
-#include <unordered_map>
-#include <algorithm>
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <map>
-#include <list>
-#include <cctype>
-#include <chrono>
-#include <random>
-
 
 //functions used in IS_STABLE
 //getHusband FUNCTION - identify the husband of a given women

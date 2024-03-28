@@ -1,5 +1,18 @@
 #ifndef HEADER_H_INCLUDED
 #define HEADER_H_INCLUDED
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+#include <algorithm>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <map>
+#include <list>
+#include <cctype>
+#include <chrono>
+#include <random>
+
 //getHusband FUNCTION - identify the husband of a given women
 std::string getHusband(const std::string woman, const std::vector<std::pair<std::string, std::string>>& matching);
 //getWIFE FUNCTION - identify the wife of a given man
