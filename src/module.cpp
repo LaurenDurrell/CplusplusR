@@ -1,7 +1,7 @@
 
 #include "Rcpp.h"
 using namespace Rcpp;
-#include "Functions.cpp"
+#include "Functions.h"
 // [[Rcpp::plugins("cpp17")]]
 
 #include <string>
