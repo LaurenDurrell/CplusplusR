@@ -1,8 +1,7 @@
 //getHusband FUNCTION - identify the husband of a given women
 std::string getHusband(const std::string woman, const std::vector<std::pair<std::string, std::string>>& matching)
 //getWIFE FUNCTION - identify the wife of a given man
-std::string getWife(const std::string man, const std::vector<std::pair<std::string, std::string>>& matching) {
-    for (const auto& couple : matching)
+std::string getWife(const std::string man, const std::vector<std::pair<std::string, std::string>>& matching)
 //INDEXER FUNCTION - find the index of a person from the values vector in the preference table
 int Indexer(const std::vector<std::string>& preferenceList,std::string partner)
 //SLICER FUNCTION - slice a person list of preferences at their partner, so only people who are prefered to their partner are listed
